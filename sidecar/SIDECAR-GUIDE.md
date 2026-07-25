@@ -532,7 +532,7 @@ Write-Host "`nThis token proves the Agent has these permissions: $($claims.roles
 **What you'll see:**
 ```
 [INFO] Token Analysis:
-App ID (appid):     54785f2d-278e-492f-b1d3-21e7595be303
+App ID (appid):     <AGENT_IDENTITY_APP_ID>
 Audience (aud):     https://graph.microsoft.com
 Issuer (iss):       https://sts.windows.net/[tenant-id]/
 Roles/Permissions:  User.Read.All

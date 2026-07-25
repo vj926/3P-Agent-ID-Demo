@@ -482,8 +482,8 @@ Body: {
 **Returns**:
 ```json
 {
-  "id": "01a18127-1e44-46ae-9824-92e4f2366e6c",
-  "appId": "b427ef29-2abf-4ce7-b69e-b1b599fd5cfb",
+  "id": "<BLUEPRINT_OBJECT_ID>",
+  "appId": "<BLUEPRINT_APP_ID>",
   "displayName": "My Blueprint",
   "signInAudience": "AzureADMyOrg"
 }
@@ -501,7 +501,7 @@ Body: {
 POST https://graph.microsoft.com/beta/serviceprincipals/graph.agentIdentityBlueprintPrincipal
 Headers: { "OData-Version" = "4.0" }
 Body: {
-  "appId": "b427ef29-2abf-4ce7-b69e-b1b599fd5cfb"
+  "appId": "<BLUEPRINT_APP_ID>"
 }
 ```
 
@@ -511,7 +511,7 @@ Body: {
 ```json
 {
   "id": "sp-object-id",
-  "appId": "b427ef29-2abf-4ce7-b69e-b1b599fd5cfb",
+  "appId": "<BLUEPRINT_APP_ID>",
   "servicePrincipalType": "AgentIdentityBlueprintPrincipal"
 }
 ```
@@ -534,8 +534,8 @@ GET https://graph.microsoft.com/beta/applications?$filter=appId eq '<blueprint-a
 ```json
 {
   "value": [{
-    "id": "01a18127-1e44-46ae-9824-92e4f2366e6c",
-    "appId": "b427ef29-2abf-4ce7-b69e-b1b599fd5cfb",
+    "id": "<BLUEPRINT_OBJECT_ID>",
+    "appId": "<BLUEPRINT_APP_ID>",
     "displayName": "My Blueprint"
   }]
 }
@@ -590,8 +590,8 @@ GET https://graph.microsoft.com/v1.0/servicePrincipals/<agent-sp-id>
 **Returns**:
 ```json
 {
-  "id": "601ed0a4-706c-4851-8af2-5dfa755f54b4",
-  "appId": "601ed0a4-706c-4851-8af2-5dfa755f54b4",
+  "id": "<AGENT_IDENTITY_APP_ID>",
+  "appId": "<AGENT_IDENTITY_APP_ID>",
   "displayName": "My Agent",
   "servicePrincipalType": "AgentIdentity"
 }
@@ -646,7 +646,7 @@ Body: {
 ```json
 {
   "id": "assignment-id",
-  "principalId": "601ed0a4-706c-4851-8af2-5dfa755f54b4",
+  "principalId": "<AGENT_IDENTITY_APP_ID>",
   "resourceId": "graph-sp-id",
   "appRoleId": "df021288-bdef-4463-88db-98f22de89214"
 }
@@ -712,7 +712,7 @@ Body: {
   "displayName": "Weather Agent User",
   "userPrincipalName": "WeatherAgentUser@contoso.onmicrosoft.com",
   "userType": "AgentUser",
-  "identityParentId": "601ed0a4-706c-4851-8af2-5dfa755f54b4"
+  "identityParentId": "<AGENT_IDENTITY_APP_ID>"
 }
 ```
 
@@ -769,8 +769,8 @@ GET https://graph.microsoft.com/beta/servicePrincipals/graph.agentIdentity
 {
   "value": [
     {
-      "id": "601ed0a4-706c-4851-8af2-5dfa755f54b4",
-      "appId": "601ed0a4-706c-4851-8af2-5dfa755f54b4",
+      "id": "<AGENT_IDENTITY_APP_ID>",
+      "appId": "<AGENT_IDENTITY_APP_ID>",
       "displayName": "My Weather Agent",
       "servicePrincipalType": "AgentIdentity"
     }
@@ -797,8 +797,8 @@ GET https://graph.microsoft.com/beta/applications/graph.agentIdentityBlueprint
 {
   "value": [
     {
-      "id": "01a18127-1e44-46ae-9824-92e4f2366e6c",
-      "appId": "b427ef29-2abf-4ce7-b69e-b1b599fd5cfb",
+      "id": "<BLUEPRINT_OBJECT_ID>",
+      "appId": "<BLUEPRINT_APP_ID>",
       "displayName": "My Blueprint",
       "signInAudience": "AzureADMyOrg"
     }
@@ -975,7 +975,7 @@ Test-AgentIdentityToken -AccessToken $newTokens.AccessToken
 [INFO] Looking up Service Principal for Agent Identity...
 [WAIT] Service Principal not available yet, waiting... (attempt 1/5)
 [WAIT] Service Principal not available yet, waiting... (attempt 2/5)
-[OK] Service Principal found: 7a3f5b89-c2d4-4e6f-8a1b-9c4d6e8f2a3b
+[OK] Service Principal found: <SERVICE_PRINCIPAL_OBJECT_ID>
 ```
 
 ### Issue: "Invalid client secret" error in blueprint verification
@@ -1072,7 +1072,7 @@ Write-Host "App ID: $($blueprint.appId)"
 Write-Host "Object ID: $($blueprint.id)"
 ```
 
-**My Blueprint App ID**: `b427ef29-2abf-4ce7-b69e-b1b599fd5cfb`
+**My Blueprint App ID**: `<BLUEPRINT_APP_ID>`
 
 ### Step 5: Create Blueprint Principal
 
@@ -1150,7 +1150,7 @@ Write-Host "✅ Got blueprint access token (length: $($blueprintToken.Length))"
 {
   "aud": "https://graph.microsoft.com",
   "roles": ["AgentIdentity.CreateAsManager"],
-  "appid": "b427ef29-2abf-4ce7-b69e-b1b599fd5cfb",
+  "appid": "<BLUEPRINT_APP_ID>",
   "app_displayname": "Agent Blueprint"
 }
 ```
@@ -1183,8 +1183,8 @@ $agentIdentityAppId = $agentIdentity.appId
 $agentIdentitySP = $agentIdentity.id
 ```
 
-**My Agent Identity App ID**: `601ed0a4-706c-4851-8af2-5dfa755f54b4`
-**My Agent Identity Service Principal ID**: `601ed0a4-706c-4851-8af2-5dfa755f54b4`
+**My Agent Identity App ID**: `<AGENT_IDENTITY_APP_ID>`
+**My Agent Identity Service Principal ID**: `<AGENT_IDENTITY_APP_ID>`
 
 ### Step 10: List Agent Identities
 
@@ -1240,10 +1240,10 @@ Write-Host "✅ Got blueprint token (T1) - Claims: $(Get-DecodedJwtToken -Token 
 **T1 Token Claims**:
 ```json
 {
-  "aud": "fb60f99c-7a34-4190-8149-302f77469936",
-  "oid": "35ae6a25-5692-456d-bb39-31494b5c35ae",
-  "azp": "85075aa5-1d73-42de-812a-95348218e4b2",
-  "sub": "/eid1/c/pub/t/<tenant>/a/<blueprint>/f3897825-fd03-45f5-90eb-fdbf26135650",
+  "aud": "<TOKEN_EXCHANGE_AUDIENCE_ID>",
+  "oid": "<BLUEPRINT_PRINCIPAL_OBJECT_ID>",
+  "azp": "<BLUEPRINT_APP_ID>",
+  "sub": "/eid1/c/pub/t/<tenant>/a/<blueprint>/<FEDERATED_CREDENTIAL_SUBJECT_ID>",
   "idtyp": "app"
 }
 ```
@@ -1279,13 +1279,13 @@ Write-Host "✅ Got blueprint token (T1) - Claims: $(Get-DecodedJwtToken -Token 
 ```json
 {
   "aud": "https://graph.microsoft.com",
-  "appid": "601ed0a4-706c-4851-8af2-5dfa755f54b4",
+  "appid": "<AGENT_IDENTITY_APP_ID>",
   "app_displayname": "Example Agent",
-  "oid": "601ed0a4-706c-4851-8af2-5dfa755f54b4",
+  "oid": "<AGENT_IDENTITY_APP_ID>",
   "idtyp": "app",
   "xms_act_fct": "9 3 11",
   "xms_sub_fct": "11 3 9",
-  "xms_par_app_azp": "85075aa5-1d73-42de-812a-95348218e4b2"
+  "xms_par_app_azp": "<BLUEPRINT_APP_ID>"
 }
 ```
 
@@ -1411,15 +1411,15 @@ After adding permissions, repeat the token exchange flow (Step 11 → Step 12) t
 ```json
 {
   "aud": "https://graph.microsoft.com",
-  "appid": "601ed0a4-706c-4851-8af2-5dfa755f54b4",
+  "appid": "<AGENT_IDENTITY_APP_ID>",
   "app_displayname": "Example Agent",
   "roles": [
     "User.Read.All"
   ],
-  "oid": "601ed0a4-706c-4851-8af2-5dfa755f54b4",
+  "oid": "<AGENT_IDENTITY_APP_ID>",
   "idtyp": "app",
   "xms_act_fct": "9 3 11",
-  "xms_par_app_azp": "b427ef29-2abf-4ce7-b69e-b1b599fd5cfb"
+  "xms_par_app_azp": "<BLUEPRINT_APP_ID>"
 }
 ```
 
@@ -1576,7 +1576,7 @@ Each agent can only access storage in its region, ensuring data residency compli
 **Cause**: Trying to add permissions to Blueprint instead of Agent Identity  
 **Solution**: 
 - ❌ Don't use Blueprint App ID for permissions
-- ✅ Use Agent Identity App ID: `601ed0a4-706c-4851-8af2-5dfa755f54b4`
+- ✅ Use Agent Identity App ID: `<AGENT_IDENTITY_APP_ID>`
 
 ### Token has no `roles` claim
 
@@ -1597,8 +1597,8 @@ Each agent can only access storage in its region, ensuring data residency compli
 
 | Type | Display Name | App ID | Object ID |
 |------|-------------|--------|--------|
-| Blueprint | Agent Blueprint | `b427ef29-2abf-4ce7-b69e-b1b599fd5cfb` | `01a18127-1e44-46ae-9824-92e4f2366e6c` |
-| Agent Identity | Example Agent | `601ed0a4-706c-4851-8af2-5dfa755f54b4` | `601ed0a4-706c-4851-8af2-5dfa755f54b4` |
+| Blueprint | Agent Blueprint | `<BLUEPRINT_APP_ID>` | `<BLUEPRINT_OBJECT_ID>` |
+| Agent Identity | Example Agent | `<AGENT_IDENTITY_APP_ID>` | `<AGENT_IDENTITY_APP_ID>` |
 | Tenant | Default Directory | - | `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` |
 
 ---
